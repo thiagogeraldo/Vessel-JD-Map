@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Mapa{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+
+<section class="hero">
+    <div class="dropdown">
+        <button class="dropbtn">Ver pedidos</button>
+        <div class="dropdown-content">
+            <ul id="requesters">
+            </ul>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="form-container" style="float: left; width: 30%;">
+        <form method="POST">
+            <div id="status-message"></div>
+            <div id="image-container" style="display: flex; gap: 10px;">
+                <img id="img1" src="{{ url_for('static', filename='img/cart0.png') }}" alt="Image 1">
+                <img id="img2" src="{{ url_for('static', filename='img/cart0.png') }}" alt="Image 2">
+                <img id="img3" src="{{ url_for('static', filename='img/cart0.png') }}" alt="Image 3">
+                <img id="img4" src="{{ url_for('static', filename='img/cart0.png') }}" alt="Image 4">            
+                <img id="img5" src="{{ url_for('static', filename='img/tugger.png') }}" alt="Image 5">            
+            </div>
+            {% if requester %}
+                <h2>Pedido de {{ requester.id }}</h2>
+                <p>Carga:</p>
+                <pre>{{ requester.pedido }}</pre>
+                {% if requester.obs %}
+                <p>Observações: {{ requester.obs }}</p>
+                {% endif %}
+                <input type="hidden" name="requester_id" value="{{ requester.id }}">
+                <button type="submit">Encerrar pedido</button>
+            {% endif %}
+        </form>
+    </div>
+    
+    <div class="map-container" style="float: left; width: 50%;">
+        <div id="map" style="height: 400px;"></div>
+        <script>
+            const local_map = '{{ url_for("static", filename="map/local_map.png") }}'
+            const tugger = '{{ url_for("static", filename="img/tugger.png") }}'
+            const location_arrow1 = '{{ url_for("static", filename="map/location-arrow1.png") }}'
+            const location_arrow2 = '{{ url_for("static", filename="map/location-arrow2.png") }}'
+            const location_arrow3 = '{{ url_for("static", filename="map/location-arrow3.png") }}'
+            const location_arrow4 = '{{ url_for("static", filename="map/location-arrow4.png") }}'
+
+            const images = ['img1', 'img2', 'img3', 'img4'];
+            const imageSources = {
+                '-1': 'cart0.png',
+                '0': 'cart.png',
+                '1': 'cart1.png'
+            };
+        </script>
+        
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+    </div>
+</div>
+
+
+{% endblock %}

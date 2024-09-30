@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}Pedir{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        color: #367C2B;
+        text-align: center;
+        padding: 20px 0;
+    }
+
+    form {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        max-width: 500px;
+        padding: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .form-group label {
+        flex: 1;
+        font-weight: bold;
+    }
+
+    .form-group select,
+    .form-group input[type="number"] {
+        flex: 2;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        padding: 10px;
+        margin-left: 10px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        padding: 10px;
+        width: 100%;
+    }
+
+    button {
+        background-color: #367C2B;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 10px 20px;
+        text-align: center;
+    }
+
+    button:hover {
+        background-color: #2d6523;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 5px;
+        padding: 10px;
+        position: relative;
+    }
+
+    li button {
+        background-color: #d9534f;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+        font-size: 12px;
+        padding: 5px 10px;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+
+    li button:hover {
+        background-color: #c9302c;
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+<script type="text/javascript" charset="utf-8">
+    var socket = io();
+    socket.on('pedido_deletado', function(data) {
+        if (data.requester_id === "{{ user_id }}") {
+            window.location.reload();
+        }
+    });
+
+    function addItem() {
+        const itemList = document.getElementById('itemList');
+        const itemType = document.getElementById('itemType').value;
+        const itemQuantity = document.getElementById('itemQuantity').value;
+
+        if (itemType && itemQuantity) {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${itemQuantity} × ${itemType} `;
+            
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remover';
+            removeButton.onclick = function() {
+                itemList.removeChild(listItem);
+                updatePedidoField();
+            };
+            
+            listItem.appendChild(removeButton);
+            itemList.appendChild(listItem);
+
+            updatePedidoField();
+        }
+    }
+
+    function updatePedidoField() {
+        const itemList = document.getElementById('itemList');
+        const items = itemList.getElementsByTagName('li');
+        let pedidoString = '';
+
+        for (let i = 0; i < items.length; i++) {
+            pedidoString += `• ${items[i].textContent.replace(' Remover', '')}\n`;
+        }
+
+        document.getElementById('pedido').value = pedidoString;
+    }
+</script>
+
+<h1>Bem-vindo(a), {{ user_id }}</h1>
+{% if requester %}
+    <p>Seu pedido está em processamento. Por favor, aguarde até que seja entregue.</p>
+{% else %}
+    <form method="POST">
+        <div class="form-group">
+            <label for="itemType">Tipo de Peça:</label>
+            <select id="itemType" name="itemType">
+                <option value="MATERIAL_1">MATERIAL_1</option>
+                <option value="MATERIAL_2">MATERIAL_2</option>
+                <option value="MATERIAL_3">MATERIAL_3</option>
+                <option value="MATERIAL_4">MATERIAL_4</option>
+            </select>
+            <input type="number" id="itemQuantity" name="itemQuantity" placeholder="Quantidade">
+        </div>
+        <button type="button" onclick="addItem()">Adicionar Item</button>
+        <ul id="itemList"></ul>
+        <input type="hidden" id="pedido" name="pedido">
+        <label for="obs">Observações:</label>
+        <input type="text" id="obs" name="obs">
+        <button type="submit">Enviar Pedido</button>
+    </form>
+{% endif %}
+{% endblock %}
