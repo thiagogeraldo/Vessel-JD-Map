@@ -25,6 +25,7 @@ As tecnologias envolvidas incluem:
 - ESP32 para rastreamento de veículos e medição de carga, utilizando triangulação para calcular a posição com base em sinais Wi-Fi e células de carga para medir o peso transportado.
 
 Os dispositivos ESP32 instalados nos veículos de reboque utilizam sinais Wi-Fi para calcular a posição dos veículos dentro da fábrica, com triangulação baseada na intensidade do sinal (RSSI) de vários pontos de acesso. Além disso, os ESP32 estão equipados com células de carga que medem o peso dos itens transportados. Essas informações são enviadas para o servidor, que atualiza a posição dos veículos no mapa e os ícones de carga em tempo real.
+![Diagrama sem nome drawio](https://github.com/user-attachments/assets/5f259db3-0909-4476-8d5d-0206aa347ba4)
 
 ## Resultados
 A aplicação fornece uma plataforma centralizada para gestão de pedidos e rastreamento de veículos de reboque. Os principais resultados incluem:
