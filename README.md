@@ -1,4 +1,5 @@
 # JD MAP by Vessel
+[JD_UBER_Compressed 1.pdf](https://github.com/user-attachments/files/17198326/JD_UBER_Compressed.1.pdf)
 
 ## Introdução
 A John Deere enfrenta desafios na gestão da logística interna, especialmente no transporte de peças e materiais entre diferentes setores da fábrica. A falta de visibilidade em tempo real sobre a localização dos veículos de reboque e o status dos pedidos pode levar a atrasos, ineficiências e aumento de custos operacionais. Este projeto visa desenvolver uma solução integrada para melhorar a eficiência logística, fornecendo rastreamento em tempo real dos veículos de reboque e uma plataforma centralizada para gestão de pedidos e monitoramento da carga transportada.
