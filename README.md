@@ -35,3 +35,47 @@ A aplicação fornece uma plataforma centralizada para gestão de pedidos e rast
 - Alta escalabilidade do código, permitindo que a solução cresça conforme a demanda, suportando um número crescente de veículos e pedidos sem perda de desempenho.
 
 Essa solução integrada melhora significativamente a logística interna da John Deere, proporcionando uma operação mais eficiente e transparente.
+
+## Testes de Desempenho
+
+### Definição da Ferramenta de Teste
+Para realizar os testes de desempenho, utilizamos uma combinação de dispositivos e navegadores, especificamente:
+- **Dispositivos:** Celular e notebook.
+- **Navegadores:** Firefox e Chrome.
+- **Ferramentas de Medição:** Um cronômetro foi utilizado para medir o tempo de resposta com precisão.
+
+**Objetivo:** Avaliar a eficiência do site em termos de tempo de resposta e capacidade de suportar múltiplos dispositivos simultaneamente.
+
+### Evidências de Testes
+Os testes foram realizados sob duas condições distintas:
+1. **IP Local:**
+   - **Procedimento:** Acessamos o site hospedado localmente utilizando o IP da rede interna.
+   - **Resultados:** O tempo de resposta foi praticamente instantâneo para todas as operações, incluindo login e navegação entre páginas.
+
+2. **Site Hospedado Gratuitamente:**
+   - **Procedimento:** Acessamos o site hospedado em um servidor gratuito, temporariamente disponível em https://thiag0.pythonanywhere.com.
+   - **Resultados:** 
+     - **Login:** Tempo de resposta variou em média 15 segundos, chegando até em 22 segundos.
+     - **Navegação:** Tempo de resposta após o login também variou significativamente, impactando a experiência do usuário.
+
+3. **Teste de Multi-Dispositivos:**
+   - **Procedimento:** Dois usuários acessaram e interagiram com o sistema simultaneamente em diferentes dispositivos (um no celular e outro no notebook).
+   - **Resultados:** A interação foi bem-sucedida sem quaisquer problemas de desempenho, demonstrando a capacidade do sistema de suportar múltiplos dispositivos simultâneos.
+
+https://github.com/user-attachments/assets/6d3542a8-fe4e-4cb1-834e-7cb928ac0a96
+[Testes.pptx](https://github.com/user-attachments/files/17603375/Testes.pptx)
+
+
+### Discussão dos Resultados
+Os resultados indicam uma clara diferença de desempenho entre o site hospedado localmente e o hospedado gratuitamente:
+- **Desempenho Local:** Excelente, com tempos de resposta instantâneos, proporcionando uma experiência de usuário fluida e eficiente.
+- **Desempenho Hospedado Gratuitamente:** Significativamente inferior, com tempos de resposta de até 22 segundos, o que pode afetar negativamente a usabilidade do site.
+
+O teste de multi-dispositivos foi bem-sucedido, demonstrando que o sistema pode suportar múltiplos usuários interagindo simultaneamente sem degradação de desempenho, o que é um ponto positivo para a escalabilidade futura do projeto.
+
+### Soluções Futuras
+Para melhorar o desempenho do site e reduzir os tempos de resposta, as seguintes ações serão consideradas para garantir que o site ofereça uma experiência de usuário mais rápida e eficiente, mesmo sob carga de múltiplos usuários e dispositivos:
+- **Migrar para um servidor pago:** Servidores pagos oferecem melhor desempenho e tempos de resposta mais rápidos em comparação com hospedagem gratuita.
+- **Otimização do Código Backend:** Melhorar a eficiência do processamento de dados no servidor Flask para reduzir tempos de resposta.
+- **Implementação de Cache:** Utilizar técnicas de cache para armazenar dados frequentemente acessados, reduzindo o tempo de carregamento de páginas e recursos.
+- **Uso de Banco de Dados:** Implementar um banco de dados adequado para a organização e acesso eficiente das informações pode melhorar significativamente o desempenho em aplicações com grande volume de dados.
